@@ -29,5 +29,6 @@ class TrackArtist(BaseModel):
 
 
 class TrackResponse(_TrackBase):
+    pass
     album: TrackAlbum
     artists: list[TrackArtist]
