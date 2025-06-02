@@ -1,12 +1,6 @@
 from pydantic import BaseModel
 
 
-class AlbumArtist(BaseModel):
-    id: str
-    name: str
-    img_url: str
-
-
 class _AlbumBase(BaseModel):
     id: str
     title: str
@@ -17,7 +11,22 @@ class _AlbumBase(BaseModel):
 
 class Album(_AlbumBase):
     artist_ids: list[str]
+    track_ids: list[str]
+
+
+class AlbumArtist(BaseModel):
+    id: str
+    name: str
+    img_url: str
+
+
+class AlbumTrack(BaseModel):
+    id: str
+    title: str
+    cover_url: str
+    audio_url: str
 
 
 class AlbumResponse(_AlbumBase):
     artists: list[AlbumArtist]
+    tracks: list[AlbumTrack]
