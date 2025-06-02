@@ -29,3 +29,6 @@ def get_album_collection() -> Collection:
 
 def get_track_collection() -> Collection:
     return _db.track_collection
+
+def get_user_collection() -> Collection:
+    return _db.user_collection

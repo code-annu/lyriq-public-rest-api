@@ -1,8 +1,10 @@
 from bson.errors import InvalidId
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
 from starlette import status
 
 from app.core.exceptions import NotFoundException
+from app.core.security import get_current_user
+from app.model.user_model import User
 from app.service.album_service import AlbumService
 
 album_router = APIRouter()
@@ -10,7 +12,7 @@ _album_service = AlbumService()
 
 
 @album_router.get("/get/{album_id}")
-def get_album(album_id: str):
+def get_album(album_id: str,user:User=Depends(get_current_user)):
     try:
         return _album_service.get_album(album_id)
     except InvalidId:
@@ -20,10 +22,10 @@ def get_album(album_id: str):
 
 
 @album_router.get('/shuffle')
-def list_shuffle_albums(limit: int):
+def list_shuffle_albums(limit: int,user:User=Depends(get_current_user)):
     return _album_service.list_shuffled_album(limit)
 
 
 @album_router.get('/search')
-def search_album(query: str):
+def search_album(query: str,user:User=Depends(get_current_user)):
     return _album_service.search_album(query)

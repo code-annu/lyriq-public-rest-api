@@ -1,8 +1,10 @@
 from bson.errors import InvalidId
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Depends
 from starlette import status
 
 from app.core.exceptions import NotFoundException
+from app.core.security import get_current_user
+from app.model.user_model import User
 from app.service.track_service import TrackService
 
 track_router = APIRouter()
@@ -10,7 +12,7 @@ _track_service = TrackService()
 
 
 @track_router.get("/get/{track_id}")
-def get_track(track_id: str):
+def get_track(track_id: str, user: User = Depends(get_current_user)):
     try:
         return _track_service.get_track(track_id)
     except InvalidId:
@@ -20,10 +22,10 @@ def get_track(track_id: str):
 
 
 @track_router.get('/shuffle')
-def list_shuffle_tracks(limit: int):
+def list_shuffle_tracks(limit: int, user: User = Depends(get_current_user)):
     return _track_service.list_shuffled_tracks(limit)
 
 
 @track_router.get('/search')
-def search_track(query: str):
+def search_track(query: str, user: User = Depends(get_current_user)):
     return _track_service.search_track(query)
