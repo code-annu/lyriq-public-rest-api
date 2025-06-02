@@ -3,10 +3,8 @@ from starlette import status
 
 from app.core.exceptions import NotFoundException
 from app.service.artist_service import ArtistService
-from app.core.database import AppDatabase
 from fastapi import APIRouter, HTTPException
 
-_db = AppDatabase()
 artist_router = APIRouter()
 _artist_service = ArtistService()
 

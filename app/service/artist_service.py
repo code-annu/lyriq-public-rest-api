@@ -1,5 +1,4 @@
 from app.repository.artist_repository import ArtistRepository
-from app.model.artist_model import *
 
 
 class ArtistService:
