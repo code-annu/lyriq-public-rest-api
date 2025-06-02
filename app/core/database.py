@@ -1,6 +1,7 @@
 from pymongo import MongoClient
 import os
 from dotenv import load_dotenv
+from pymongo.collection import Collection
 
 load_dotenv()
 
@@ -14,3 +15,17 @@ class AppDatabase:
     album_collection = db['albums']
     track_collection = db['tracks']
 
+
+_db = AppDatabase()
+
+
+def get_artist_collection() -> Collection:
+    return _db.artist_collection
+
+
+def get_album_collection() -> Collection:
+    return _db.album_collection
+
+
+def get_track_collection() -> Collection:
+    return _db.track_collection

@@ -8,13 +8,13 @@ from fastapi import APIRouter, HTTPException
 
 _db = AppDatabase()
 artist_router = APIRouter()
-_artist_service = ArtistService(_db.artist_collection)
+_artist_service = ArtistService()
 
 
 @artist_router.get("/get/{artist_id}")
 def get_artist(artist_id: str):
     try:
-        return _artist_service.read(artist_id)
+        return _artist_service.get_artist(artist_id)
     except InvalidId:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid artist id format")
     except NotFoundException:
@@ -23,13 +23,13 @@ def get_artist(artist_id: str):
 
 @artist_router.get("/shuffle")
 def list_shuffled_artist(limit: int):
-    return _artist_service.shuffled_data(size=limit)
+    return _artist_service.list_shuffled_artist(limit=limit)
 
 
 @artist_router.post("/multiple")
 def get_multiple_artists(artist_ids: list[str]):
     try:
-        return _artist_service.read_many(artist_ids)
+        return _artist_service.get_many_artist(artist_ids)
     except InvalidId:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid artist id format")
 
