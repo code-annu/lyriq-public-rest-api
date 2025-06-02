@@ -7,8 +7,8 @@ load_dotenv()
 
 
 class AppDatabase:
-    client = MongoClient(os.getenv("DATABASE_URL"))
-    # client = MongoClient(os.environ["DATABASE_URL"])
+    # client = MongoClient(os.getenv("DATABASE_URL"))
+    client = MongoClient(os.environ["DATABASE_URL"])
     db = client["lyriq"]
     user_collection = db["users"]
     artist_collection = db['artists']
